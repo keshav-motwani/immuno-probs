@@ -251,6 +251,11 @@ class BuildIgorModel(object):
                 filename='{}_params'.format(output_prefix),
                 directory=output_dir)
             self.logger.info("Written '%s'", filename_2)
+            for file in os.listdir(os.path.join(working_dir, 'inference')):
+                _, filename = self._copy_file_to_output(file=os.path.join(working_dir, 'inference', file),
+                                                        filename='{}_{}'.format(output_prefix, file.split('.')[0]),
+                                                        directory=output_dir)
+                self.logger.info("Written '%s'", filename)
         except IOError as err:
             self.logger.error(str(err))
             return
